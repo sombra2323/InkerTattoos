@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="shortcut icon" href="https://i.ibb.co/JFsR6SH/favicon-32x32.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inker Tattoos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/BqWG7dm/apple-touch-icon.png">
+
+    <style>
+        body {
+        
+            background-image: url('https://i.ibb.co/sjMXjBL/400302596-843311904466411-474243751095106306-n.jpg');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease-in-out;
+            position: relative;
+        }
+
+        .titulo-principal {
+            text-align: center;
+            font-size: 3em;
+            color: #000000;
+            margin-top: 50px;
+        }
+
+        .eslogan {
+            text-align: center;
+            font-size: 1.9em;
+            color:#ffe145;
+            margin-top: 20px;
+        }
+
+        .contenedor-tarjetas {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        .tarjeta {
+            flex: 1;
+            padding: 20px;
+            background-color: #333333;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+            text-align: center;
+            margin: 20px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        .titulo-tarjeta {
+            font-size: 1.5em;
+            color: #70fd7c;
+            margin-bottom: 10px;
+        }
+
+        .contenido-tarjeta {
+            color: #ffffff;
+            font-size: 1em;
+        }
+
+        .info-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            background-color: #333333;
+            color: #ffe145;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .info-button:hover {
+            background-color: #555555;
+        }
+
+        .info-content {
+            display: none;
+            position: fixed;
+            bottom: 85px;
+            right: 20px;
+            z-index: 999;
+            background-color: #ffffff;
+            color: #3f3e3e;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow:8px 12px 4px rgba(166, 61, 231, 0.2);
+            width: 150px;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        .info-content.active {
+            display: block;
+        }
+
+        .soundcloud-player {
+            width: 100%;
+            height: 100px;
+            overflow: hidden;
+        }
+
+        .orange-button {
+            background-color: #ff5500;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+            margin-top: 10px;
+        }
+
+        .orange-button:hover {
+            background-color: #ff7733;
+        }
+
+        .iconos-contenedor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 45px;
+        }
+
+        .iconos-contenedor a {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        .iconos-contenedor i {
+            font-size: 24px;
+            color: #70fd7c;
+        }
+
+        .copyright {
+            text-align:center;
+            font-size: 0.9em;
+            color: #ffffff;
+            margin-bottom: 0px;
+        }
+
+        .galeria-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            overflow-y: auto;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        .galeria-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            grid-gap: 10px;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 10px;
+        }
+
+        .galeria-imagen {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .galeria-texto {
+            font-size: 1.5em;
+            color: #44b2e9;
+            text-align:center;
+            margin-bottom: 10px;
+        }
+
+        .galeria-mas-info {
+            font-size: 1.5em;
+            color: #44b2e9;
+            text-align: center;
+        }
+
+        .cerrar-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            color: white;
+            font-size: 24px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cerrar-btn:hover {
+            color: rgb(253, 0, 0);
+        }
+
+        .info-text-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            overflow-y: auto;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        .info-text-content {
+            padding: 20px;
+            color: #ffffff;
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        .cerrar-btn-text {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            color: white;
+            font-size: 24px;
+            border: none;
+            cursor: pointer;
+        }
+        .info-text-content {
+        color: #44b2e9;
+        font-size: 1.2em; 
+    }
+        .cerrar-btn-text:hover {
+            color: rgb(253, 0, 0);
+        }
+        .imagen-circular {
+    width: 200px; 
+    height: 200px; 
+    overflow: hidden; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
+}
+.exposicion-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            overflow-y: auto;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        .exposicion-content {
+            padding: 20px;
+            color: #ffffff;
+        }
+
+        .exposicion-titulo {
+            font-size: 2em;
+            color: #44b2e9;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .exposicion-info {
+            font-size: 1.2em;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .exposicion-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            overflow-y: auto;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        .exposicion-content {
+            padding: 20px;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .exposicion-titulo {
+            font-size: 2em;
+            color: #44b2e9;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .exposicion-info {
+            font-size: 1.2em;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .exposicion-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .exposicion-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.exposicion-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.exposicion-item-center img {
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+      .exposicion-item-center {
+            grid-column: 2 / span 1; /* Mantener en el centro de la segunda columna */
+            grid-row: 2 / span 2; /* Ocupar dos filas */
+            animation: parpadeo 1s ease-in-out infinite alternate; /* Animación de parpadeo */
+            max-width: 150%; /* Tamaño máximo del contenedor */
+            margin: 0 auto; /* Centrar horizontalmente */
+        }
+/* Estilos específicos para dispositivos móviles */
+@media only screen and (max-width: 600px) {
+    .exposicion-grid {
+        display: flex;
+        flex-direction: column; /* Cambiar dirección a column */
+        gap: 10px;
+        align-items: center; /* Centrar elementos verticalmente */
+    }
+
+    .exposicion-item {
+        width: 100%; /* Ocupar todo el ancho disponible */
+        max-width: calc(100% - 20px); /* Restar el espacio de separación */
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .exposicion-item img {
+        width: 100%;
+        height: auto; /* Mantener la proporción de la imagen */
+        object-fit: cover;
+        border-radius: 8px;
+    }
+}
+
+
+        @keyframes parpadeo {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0.5;
+            }
+        }
+        
+
+.imagen-circular img {
+    width: 100%; 
+    height: auto; 
+    border-radius: 50%; 
+}
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="titulo-principal">
+        𝕴𝖓𝖐𝖊𝖗 𝕿𝖆𝖙𝖙𝖔𝖔𝖘
+    </div>
+    <div class="eslogan">
+        𝕭𝖊𝖓𝖉𝖎𝖙𝖔 𝕯𝖔𝖑𝖔𝖗
+    </div>
+
+    <div class="contenedor-tarjetas">
+        <div class="tarjeta" onclick="mostrarInfoText()">
+            <div class="titulo-tarjeta">𝔖𝔢𝔯𝔳𝔦𝔠𝔦𝔬𝔷</div>
+            <div class="contenido-tarjeta">Explora algunos de mis servicios de Tattos de alta calidad.</div>
+        </div>
+        <div class="tarjeta" onclick="mostrarGaleria()">
+            <div class="titulo-tarjeta">𝔊𝔞𝔩𝔢𝔯𝔦𝔞</div>
+            <div class="contenido-tarjeta">Mira a continuación algunos de mis trabajos, y empapate de mi estilo.</div>
+        </div>
+        <div class="tarjeta" onclick="mostrarExposicion()">
+            <div class="titulo-tarjeta">𝔈𝔵𝔭𝔬</div>
+            <div class="contenido-tarjeta">Mira a continuación algunas expos en las que he participado.</div>
+        </div>
+        
+    </div>
+    <div class="exposicion-container" id="exposicionContainer">
+        <button class="cerrar-btn" onclick="cerrarExposicion()"><i class="fas fa-times"></i></button>
+        <div class="exposicion-content">
+            <h2 class="exposicion-titulo">𝕰𝖝𝖕𝖔𝖘</h2>
+            <p class="exposicion-info">𝘈𝘭𝘨𝘶𝘯𝘢𝘴 𝘦𝘯 𝘭𝘢𝘴 𝘲𝘶𝘦 𝘱𝘢𝘳𝘵𝘪𝘤𝘪𝘱𝘢𝘥𝘰</p>
+            <div class="exposicion-grid">
+                <div class="exposicion-item exposicion-item-left-top">
+                    <img src="https://i.ibb.co/RjvJFcq/295290483-5361040770657625-101055194295086738-n.jpg" alt="Exposición 1">
+                </div>
+                <div class="exposicion-item exposicion-item-left-bottom">
+                    <img src="https://i.ibb.co/LgJ0g0J/363329040-6474916585936699-7096719968900203786-n.jpg" alt="Exposición 1 B">
+                </div>
+                <div class="exposicion-item exposicion-item-center">
+                    <img src="https://i.ibb.co/cN5tkxf/6021c699-833d-4ac9-b5ad-6da2ce970b6e.jpg" alt="Exposición Central">
+                </div>
+                <div class="exposicion-item exposicion-item-right-top">
+                    <img src="https://i.ibb.co/B2824hQ/267373061-4884662634962110-7797193252052154297-n.jpg" alt="Exposición 2">
+                </div>
+                
+                <!-- Agrega más imágenes de exposición según sea necesario -->
+            </div>
+        </div>
+    </div>
+
+    
+    </div>
+    <div class="iconos-contenedor">
+        <a href="https://www.facebook.com/aldo.waterloo" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://acortar.link/inkertattoos" target="_blank"><i class="fas fa-map-marker-alt"></i></a>
+        <a href="https://www.instagram.com/inker23mx/" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+
+    <div class="copyright">
+        © 2024 Inker Tattoos. Todos los derechos reservados.
+        
+    </div>
+
+    <div class="galeria-container" id="galeriaContainer">
+        <button class="cerrar-btn" onclick="cerrarGaleria()"><i class="fas fa-times"></i></button>
+        <div class="galeria-content">
+            <img src="https://i.ibb.co/ZMcY0sW/339134118-1396684327753959-8002653717759257889-n.jpg" alt="Imagen 1" class="galeria-imagen">
+            <img src="https://i.ibb.co/LRS3Grs/340851940-760412355448739-6514828225250040079-n.jpg" alt="Imagen 2" class="galeria-imagen">
+            <img src="https://i.ibb.co/k0k0kTt/344742727-159937593431227-2677650554990866841-n.jpg" alt="Imagen 3" class="galeria-imagen">
+            <img src="https://i.ibb.co/rZpd1D8/398886817-6843279445767076-8640367722498378288-n.jpg" alt="Imagen 4" class="galeria-imagen">
+            <img src="https://i.ibb.co/DYsNq7G/421451011-7136892393072445-4901964220559642881-n.jpg" alt="Imagen 5" class="galeria-imagen">
+            <img src="https://i.ibb.co/R775xnY/430477467-7294642507297432-699721580037424179-n.jpg" alt="Imagen 6" class="galeria-imagen">
+            <img src="https://i.ibb.co/KqmY9Vk/432589657-7352996571462025-451843187432565510-n.jpg" alt="Imagen 7" class="galeria-imagen">
+            <img src="https://i.ibb.co/g3Syppw/433005274-7417989634962718-7577399113446473070-n.jpg" alt="Imagen 8" class="galeria-imagen">
+            <img src="https://i.ibb.co/4TC1BpC/434220457-7404157649679250-5434678438769832583-n.jpg" alt="Imagen 9" class="galeria-imagen">
+            <img src="https://i.ibb.co/RvrfWrG/434556845-7413905168704498-3202434139351544515-n.jpg" alt="Imagen 10" class="galeria-imagen">
+            <p class="galeria-texto">𝐴𝑞𝑢𝑖 𝑡𝑒 𝑚𝑢𝑒𝑠𝑡𝑟𝑜 𝑎𝑙𝑔𝑢𝑛𝑜𝑠 𝑑𝑒 𝑙𝑜𝑠 𝑇𝑎𝑡𝑡𝑜𝑜𝑠 𝑞𝑢𝑒 ℎ𝑒 𝑟𝑒𝑎𝑙𝑖𝑧𝑎𝑑𝑜</p>
+            <p class="galeria-mas-info">𝑉𝑖𝑠𝑖𝑡𝑎 𝑚𝑖𝑠 𝑟𝑒𝑑𝑒𝑠 𝑠𝑜𝑐𝑖𝑎𝑙𝑒𝑠 𝑝𝑎𝑟𝑎 𝑚𝑖𝑟𝑎𝑟 𝑚𝑎𝑠 𝑑𝑒 𝑚𝑖𝑠 𝑡𝑟𝑎𝑏𝑎𝑗𝑜𝑠</p>
+            
+        </div>
+    </div>
+
+    <div class="info-button" onclick="toggleInfo()">
+        <i class="fas fa-music"></i>
+    </div>
+
+    <div class="info-content" id="infoContent">
+        <div class="soundcloud-player">
+            <iframe width="100%" height="100%" scrolling="no" frameborder="no" allow="autoplay"
+                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1794012778&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
+            </iframe>
+        </div>
+        <button class="orange-button">InkerTattoos</button>
+    </div>
+
+    
+    <div class="info-text-container" id="infoTextContainer"> 
+        <button class="cerrar-btn-text" onclick="cerrarInfoText()"><i class="fas fa-times"></i></button>
+        <div class="info-text-content">
+         <p style="font-size: 35px;">𝔑𝔲𝔢𝔰𝔱𝔯𝔬𝔰 𝔰𝔢𝔯𝔳𝔦𝔠𝔦𝔬𝔰 𝔰𝔬𝔫: </p>
+         <p style="text-align: left;">✧𝘛𝘢𝘵𝘵𝘰𝘰 𝘛𝘳𝘢𝘥𝘪𝘤𝘪𝘰𝘯𝘢𝘭</p>
+         <p style="text-align: left;">✧𝘛𝘢𝘵𝘵𝘰𝘰 𝘕𝘦𝘰𝘵𝘳𝘢𝘥𝘪𝘤𝘪𝘰𝘯𝘢𝘭</p>
+         <p style="text-align: left;">✧𝘛𝘢𝘵𝘵𝘰𝘰 𝘊𝘰𝘯 𝘙𝘦𝘢𝘭𝘪𝘴𝘮𝘰 𝘢 𝘴𝘰𝘮𝘣𝘳𝘢𝘴</p>
+         <p style="text-align: left;">✧𝘛𝘢𝘵𝘵𝘰𝘰 𝘈𝘯𝘪𝘮𝘦</p>
+         <p style="text-align: left;">✧𝘕𝘦𝘸 𝘚𝘤𝘩𝘰𝘰𝘭</p>
+         <p style="text-align: left;">✧𝘉𝘭𝘢𝘤𝘬 𝘢𝘯𝘥 𝘎𝘳𝘢𝘺</p>
+         <p style="text-align: left;">✧𝘓𝘦𝘵𝘵𝘦𝘳𝘪𝘯𝘨</p>
+         <p style="text-align: left;">✧𝘉𝘭𝘢𝘤𝘬𝘰𝘶𝘵</p>
+         <p style="text-align: left;">✧𝘠 𝘕𝘶𝘦𝘷𝘢𝘴 𝘛𝘦𝘯𝘥𝘦𝘯𝘤𝘪𝘢𝘴</p>
+         <p style="font-size: 17px;">(Cualquier diseño y tipo de tatuaje lo puedes cotizar conmigo, en persona, o contactandome)</p>
+
+         <img src="https://i.ibb.co/5B3Dy6m/432900056-7386860974742251-8819607252689498944-n-modified.png" alt="Imagen de servicios" style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
+    </div>
+
+
+        </div>
+    </div>
+    <script>
+
+        function mostrarExposicion() {
+            document.getElementById('exposicionContainer').style.display = 'block';
+        }
+
+        function cerrarExposicion() {
+            document.getElementById('exposicionContainer').style.display = 'none';
+        }
+
+    </script>
+    <script>
+        function mostrarGaleria() {
+            var galeriaContainer = document.getElementById("galeriaContainer");
+            galeriaContainer.style.display = "flex";
+        }
+
+        function cerrarGaleria() {
+            var galeriaContainer = document.getElementById("galeriaContainer");
+            galeriaContainer.style.display = "none";
+        }
+
+        function toggleInfo() {
+            var infoContent = document.getElementById("infoContent");
+            infoContent.classList.toggle("active");
+        }
+
+        function mostrarInfoText() {
+            var infoTextContainer = document.getElementById("infoTextContainer");
+            infoTextContainer.style.display = "flex";
+        }
+
+        function cerrarInfoText() {
+            var infoTextContainer = document.getElementById("infoTextContainer");
+            infoTextContainer.style.display = "none";
+        }
+        
+        
+    </script>
+</body>
+</html>
